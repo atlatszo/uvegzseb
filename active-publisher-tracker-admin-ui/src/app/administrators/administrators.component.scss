@@ -1,0 +1,30 @@
+#Administrators {
+  .row-spacey {
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+  #Administrators_table {
+
+    table {
+      th {
+        white-space: nowrap;
+      }
+
+      form.tr {
+        display: table-row;
+        vertical-align: inherit;
+        border-color: inherit;
+
+        .td {
+          display: table-cell;
+          padding: 0.75rem;
+          vertical-align: top;
+          border-top: 1px solid #e9ecef;
+        }
+      }
+    }
+
+  }
+
+}

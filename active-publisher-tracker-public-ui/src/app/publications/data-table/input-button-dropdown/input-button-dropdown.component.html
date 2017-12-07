@@ -1,0 +1,19 @@
+<section id="Input_button_dropdown">
+  <div id="group-input" class="btn-group" [class.clearable]="value && value.length">
+    <input
+      type="text"
+      class="form-control"
+      [(ngModel)]="value"
+      [placeholder]="placeholder"
+    >
+    <i id="selection-clear" class="selection-clear" (click)="onClearClick()">&times;</i>
+    <button class="btn btn-primary dropdown-toggle dropdown-toggle-split"></button>
+  </div>
+  <app-dropdown
+    [options]="options"
+    [inputId]="'group-input'"
+    [clearButtonId]="'selection-clear'"
+    [search]="value"
+    (selected)="setValue($event)"
+  ></app-dropdown>
+</section>

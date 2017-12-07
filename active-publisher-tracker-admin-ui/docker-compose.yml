@@ -1,0 +1,71 @@
+version: '2'
+services:
+  active-publisher-tracker-admin-frontend:
+    image: docker.precognox.com/active-publisher-tracker/active-publisher-tracker-admin-frontend:latest
+    container_name: active-publisher-tracker-admin-frontend
+    expose:
+      - 80
+    networks:
+      - active-publisher-tracker
+    volumes:
+      - "./dist:/usr/html"
+  active-publisher-tracker-backend:
+    image: docker.precognox.com/active-publisher-tracker/active-publisher-tracker-backend:0.1.0-development-snapshot
+    container_name: active-publisher-tracker-backend
+    networks:
+      - active-publisher-tracker
+    expose:
+      - 8080
+    environment:
+      - JAVA_OPTS=-Xdebug -agentlib:jdwp=transport=dt_socket,address=8001,suspend=n,server=y
+      - DB_URL=jdbc:mariadb://active-publisher-tracker-db:3306/apt_backend
+      - DB_USER=root
+      - DB_PASS=Q2sxMAJ_k7UEhAa
+      - EMAIL_SERVICE_URL=http://email-delivery-service:8080/
+      - EMAIL_SENDER_ADDR=sender@email.com
+      - EMAIL_REPLY_TO_ADDR=replyto@email.com
+      - NEWSLETTER_FREQUENCY_HOURS=1
+      - REMINDER_FREQUENCY_HOURS=1
+      - REMINDER_THRESHOLD_DAYS=1
+      - KEYCLOAK_URL=https://auth-test.precognox.com/keycloak/auth
+      - KEYCLOAK_AUTH_REALM=master
+      - KEYCLOAK_USERNAME=hedon
+      - KEYCLOAK_PASSWORD=credo
+      - REALM=f
+  active-publisher-tracker-db:
+    image: mysql:5.6.32
+    container_name: active-publisher-tracker-db
+    networks:
+      - active-publisher-tracker
+    ports:
+      - "3308:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=Q2sxMAJ_k7UEhAa
+      - MYSQL_DATABASE=apt_backend
+      - MYSQL_USER=apt_backend
+      - MYSQL_PASSWORD=P8aoBE4oJC4M5fz
+  active-publisher-tracker-keycloak-development-proxy:
+    image: docker.precognox.com/keycloak/keycloak-development-proxy:1.0.0
+    container_name: active-publisher-tracker-keycloak-development-proxy
+    ports:
+      - 8080:80
+    networks:
+      - active-publisher-tracker
+    environment:
+      - REALMURL=http://auth-test.precognox.com/keycloak/auth/realms/Precognox
+      - REALM=precognox
+      - USERNAME=testuser
+      - FIRSTNAME=jakab
+      - LASTNAME=gipsz
+      - EMAIL=asd@asdas.hu
+      - SUBJECT=a47a0296-a371-4581-827f-725b39e02531
+#     - SUBJECT=d8d4c01c-b44b-479d-b1ac-f095c712a7b7
+#     - SUBJECT=99ff4884-a072-4596-9907-4d4d6b2c32d1
+#     - SUBJECT=a6490b1a-ce95-43a1-8c72-7724a008bb25
+#     - SUBJECT=4e68fb1f-7a9c-4bc5-9dc4-dac57ae142ec
+#     - SUBJECT=c28c6d5e-da1c-49c4-a8cb-f9b15cd18cdd
+      - KEYCLOAK_TARGET_PRECOGNOX_ACTIVE-PUBLISHER-TRACKER-ADMIN-FRONTEND=http://active-publisher-tracker-admin-frontend:80
+      - KEYCLOAK_TARGET_PRECOGNOX_ACTIVE-PUBLISHER-TRACKER-BACKEND=http://active-publisher-tracker-backend:8080
+networks:
+  active-publisher-tracker:
+    driver: bridge

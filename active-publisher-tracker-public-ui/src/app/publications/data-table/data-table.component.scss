@@ -1,0 +1,49 @@
+#Data_table_main {
+
+  #Data_table_filter {
+    .row div {
+      margin-top: 5px;
+      margin-bottom: 5px;
+    }
+  }
+
+  #Data_table {
+
+    .table {
+
+      thead, tbody tr {
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+      }
+
+      tbody {
+        overflow-y: auto;
+        max-height: 38rem;
+        display: block;
+
+        th, td {
+          vertical-align: middle;
+        }
+      }
+
+      .details {
+        display: none;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        background-color: #f9f9f9;
+
+        &.show {
+          display: block;
+        }
+
+        li {
+          border-bottom: 1px solid #ddd;
+          padding: 3px 20px;
+        }
+      }
+    }
+  }
+
+}

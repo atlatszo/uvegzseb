@@ -1,0 +1,22 @@
+#Rank_table {
+
+  .ranking-list {
+    overflow-y: auto;
+    height: 359px;
+    list-style-type: none;
+    padding: 0 10px 0 5px;
+
+    .ranking-item {
+      display: flex;
+      width: 100%;
+
+      .name {
+        white-space: nowrap;
+        flex: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding-right: 20px;
+      }
+    }
+  }
+}

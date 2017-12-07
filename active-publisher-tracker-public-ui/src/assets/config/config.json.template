@@ -1,0 +1,3 @@
+{
+  "reCaptcha_site_key": "{{ .Env.RECAPTCHA_KEY }}"
+}

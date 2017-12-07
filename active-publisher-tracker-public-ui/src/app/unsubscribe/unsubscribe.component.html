@@ -1,0 +1,8 @@
+<section id="Unsubscribe">
+  <div *ngIf="isError" class="alert alert-danger" role="alert">
+    {{translationKey + 'failed-unsubscribe' | translate}}
+  </div>
+  <div *ngIf="isUnSubscribed" class="alert alert-success" role="alert">
+    {{translationKey + 'successful-unsubscribe' | translate}}
+  </div>
+</section>

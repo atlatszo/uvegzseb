@@ -1,0 +1,71 @@
+<section id="Data_table_main">
+  <section id="Data_table_filter">
+    <form *ngIf="form" [formGroup]="form">
+      <div class="row">
+        <div class="col-md-6 col-sm-12">
+          <app-input-button-dropdown formControlName="dataOwnerName" [options]="dataOwnerOptions"></app-input-button-dropdown>
+        </div>
+        <!--<div class="col-md-6 col-sm-12">-->
+        <!--<app-date-range-picker formControlName="dateRange"></app-date-range-picker>-->
+        <!--</div>-->
+        <div class="col-md-6 col-sm-12">
+          <app-multi-select
+            *ngIf="categories && categories.length"
+            [options]="categories"
+            [multi]="true"
+            [placeholder]="'Select Category'"
+            formControlName="categoryIds"
+          ></app-multi-select>
+        </div>
+      </div>
+    </form>
+  </section>
+  <section id="Data_table">
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">{{translationKey + 'dataOwner' | translate}}</th>
+        <th scope="col">{{translationKey + 'lastUpdate' | translate}}</th>
+        <th scope="col">{{translationKey + 'category' | translate}}</th>
+        <th scope="col">{{translationKey + 'info' | translate}}</th>
+      </tr>
+      </thead>
+      <tbody
+        infiniteScroll
+        [scrollWindow]="false"
+        [infiniteScrollDistance]="2"
+        [infiniteScrollThrottle]="300"
+        (scrolled)="onScroll()"
+      >
+      <div *ngFor="let update of updates">
+        <tr>
+          <td>{{update.dataOwnerName}}</td>
+          <td>{{update.updateDate | date:'yyyy.MM.dd.'}}</td>
+          <td>{{update.categoryName}}</td>
+          <td>
+            <ng-template #detailTooltipContent>{{translationKey + 'detail_tooltip' | translate}}</ng-template>
+            <button
+              *ngIf="update.details && update.details.length"
+              type="button"
+              class="btn btn-link"
+              (click)="showDetails(update)"
+              [ngbTooltip]="detailTooltipContent"
+              container="body"
+            >
+              <i class="fa fa-fw fa-info-circle"></i>
+            </button>
+          </td>
+        </tr>
+        <ul class="details" [class.show]="update.show">
+          <li *ngFor="let document of update.details">
+            <div class="row no-gutters">
+              <div class="col-md-6 col-sm-12"><a target="_blank" href="{{document.pageUrl}}">{{document.documentTitle}}</a></div>
+              <div class="col-md-6 col-sm-12">{{document.providedDate | date:'yyyy.MM.dd.'}}</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      </tbody>
+    </table>
+  </section>
+</section>

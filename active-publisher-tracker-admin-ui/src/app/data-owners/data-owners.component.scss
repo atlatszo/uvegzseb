@@ -1,0 +1,121 @@
+#Data_owners_main {
+
+  .row {
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+  #Data_owners_filter {
+
+    .btn-new-data-owner {
+      width: 100%;
+    }
+
+    .custom-checkbox-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+
+      .error-checkbox-label {
+        margin-right: 10px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      [class*="col-"] {
+        margin-bottom: 15px;
+      }
+    }
+
+  }
+
+  #Data_owners_table {
+
+    table {
+      th {
+        white-space: nowrap;
+      }
+
+      .badge {
+        background-color: #007bff;
+        border-radius: 4px;
+        cursor: default;
+        margin-right: 5px;
+        padding: 2px 5px;
+        font-size: 1rem;
+        line-height: 1.25;
+        color: #ffffff;
+        font-weight: 400;
+        max-width: 300px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+
+      form.tr {
+        display: table-row;
+        vertical-align: inherit;
+        border-color: inherit;
+
+        .td {
+          display: table-cell;
+          padding: 0.75rem;
+          vertical-align: top;
+          border-top: 1px solid #e9ecef;
+        }
+
+        .description {
+          width: 500px;
+
+          &.read-only.open {
+            max-height: 500px;
+            overflow: auto;
+          }
+
+          textarea {
+            min-height: 134px;
+          }
+        }
+
+        .show-all-text {
+          margin-top: 3px;
+          color: #007bff;
+          cursor: pointer;
+          text-align: center;
+          border-top: 1px solid #007bff;
+
+          &:hover {
+            color: #0056b3;
+            border-top: 1px solid #0056b3;
+          }
+        }
+
+        .long-name {
+          max-width: 135px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          text-align: center;
+        }
+
+        .short-name {
+          max-width: 90px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          text-align: center;
+        }
+
+        .weight {
+          min-width: 5rem;
+        }
+
+        .invalid-feedback {
+          display: block;
+        }
+      }
+    }
+
+  }
+
+}

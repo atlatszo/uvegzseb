@@ -1,0 +1,10 @@
+<section id="Date_range_picker">
+  <input
+    class="form-control"
+    type="text"
+    name="dateRangeInput"
+    daterangepicker
+    [options]="dateRangeOptions"
+    (selected)="setDateRange($event)"
+  />
+</section>
