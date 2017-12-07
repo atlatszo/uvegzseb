@@ -1,0 +1,9 @@
+Tisztelt $dataOwnerLongName!
+
+#if( $daysSinceLastUpdate > 0 )
+    $daysSinceLastUpdate napja nem tett közzé adatfrissítést. A jelenlegi helye az adatgazdák rangsorában: $rankingPosition.
+#else
+    Még nem tett közzé adatfrissítést.
+#end
+
+Active Publisher Tracker

@@ -1,0 +1,54 @@
+version: '2'
+services:
+  active-publisher-tracker-backend:
+    image: docker.precognox.com/active-publisher-tracker/active-publisher-tracker-backend:latest
+    container_name: active-publisher-tracker-backend
+    networks:
+      - active-publisher-tracker
+    ports:
+      - "8080:8080"
+      - "9081:9081"
+    environment:
+      - DB_URL=jdbc:mariadb://active-publisher-tracker-db:3306/apt_backend
+      - DB_USER=root
+      - DB_PASS=Q2sxMAJ_k7UEhAa
+      - EMAIL_SERVICE_URL=http://email-delivery-service:8080/
+      - EMAIL_SENDER_ADDR=sender@email.com
+      - EMAIL_REPLY_TO_ADDR=replyto@email.com
+      - NEWSLETTER_FREQUENCY_HOURS=1
+      - REMINDER_FREQUENCY_HOURS=1
+      - REMINDER_THRESHOLD_DAYS=1
+      - KEYCLOAK_URL=https://auth-test.precognox.com/keycloak/auth/
+      - KEYCLOAK_AUTH_REALM=master
+      - KEYCLOAK_USERNAME=
+      - KEYCLOAK_PASSWORD=
+      - REALM=
+      - NEWSLETTER_UNSUBSCRIBE_LINK_TEMPLATE=https://ondemandtest.precognox.com/unsubscribe/$${token}/$${email}
+  active-publisher-tracker-db:
+    image: mysql:5.6.32
+    container_name: active-publisher-tracker-db
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
+    networks:
+      - active-publisher-tracker
+    ports:
+      - "3308:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=Q2sxMAJ_k7UEhAa
+      - MYSQL_DATABASE=apt_backend
+      - MYSQL_USER=apt_backend
+      - MYSQL_PASSWORD=P8aoBE4oJC4M5fz
+  email-delivery-service:
+    image: docker.precognox.com/common-services/email-delivery-service:latest
+    container_name: email-delivery-service
+    networks:
+      - active-publisher-tracker
+    ports:
+      - "8087:8080"
+    environment:
+      - MAIL_HOST=x.smtp.com
+      - MAIL_PORT=25
+      - MAIL_USER_NAME=user
+      - MAIL_PASSWORD=pass
+networks:
+  active-publisher-tracker:
+    driver: bridge

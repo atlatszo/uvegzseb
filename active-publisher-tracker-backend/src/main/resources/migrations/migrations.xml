@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <include relativeToChangelogFile="true" file="2017-10-17-create_initial_schema.xml"/>
+    <include relativeToChangelogFile="true" file="2017-10-18-insert-roles.xml"/>
+    <include relativeToChangelogFile="true" file="2017-11-10-rename-data-table.xml"/>
+    <include relativeToChangelogFile="true" file="2017-11-13-fix-data-owner-weight-column.xml"/>
+    <include relativeToChangelogFile="true" file="2017-11-13-fix-data-owner-short-name.xml"/>
+    <include relativeToChangelogFile="true" file="2017-11-16-make-data-owner-long-name-unique.xml"/>
+
+</databaseChangeLog>

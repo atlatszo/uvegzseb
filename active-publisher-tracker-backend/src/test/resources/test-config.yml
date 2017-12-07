@@ -1,0 +1,45 @@
+server:
+  applicationConnectors:
+    - type: http
+      port: 8088
+  adminConnectors:
+    - type: http
+      port: 9088
+
+logging:
+  level: INFO  
+  appenders:
+  - type: console
+    logFormat: "%d{HH:mm:ss,SSS} %-5p [%c] \\(%t\\) %m%n"
+
+dbConfig:
+    search.packages: com.precognox.publishertracker
+
+    h2ProductionMode: true #do not generate tables from entities
+
+    datasource.default: h2
+    datasource.h2.username: test
+    datasource.h2.password: test
+    datasource.h2.databaseUrl: jdbc:h2:mem:infoharvester_test
+    datasource.h2.databaseDriver: org.h2.Driver
+realmName: master
+keycloakConfig:
+    serverUrl: http://test
+    authRealm: test
+    username: test
+    password: test
+    clientId: test
+    clientSecret:
+    grantType: password
+
+shiroConfig:
+  iniConfigs: ["classpath:shiro.ini"]
+
+emailConfig:
+    emailServiceUrl: test
+    senderAddress: sender@email.com
+    replyToAddress: replyto@email.com
+    newsletterFrequencyHours: 120
+    reminderFrequencyHours: 720
+    reminderThresholdDays: 30
+    newsletterUnsubscribeLinkTemplate: http://frontend-host/unsubscribe/${token}/${email}

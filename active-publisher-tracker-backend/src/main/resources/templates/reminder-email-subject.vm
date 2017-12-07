@@ -1,0 +1,5 @@
+#if( $daysSinceLastUpdate > 0 )
+    $daysSinceLastUpdate napja nem tett közzé adatfrissítést.
+#else
+    Még nem tett közzé adatfrissítést.
+#end

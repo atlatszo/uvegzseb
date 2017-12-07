@@ -1,0 +1,45 @@
+server:
+  applicationConnectors:
+    - type: http
+      port: 8080
+  adminConnectors:
+    - type: http
+      port: 9081
+
+logging:
+  level: INFO  
+  appenders:
+  - type: console
+    logFormat: "%d{HH:mm:ss,SSS} %-5p [%c] \\(%t\\) %m%n"
+
+dbConfig:
+  search.packages: com.precognox.publishertracker
+
+  datasource.default: db
+  datasource.db.username: {{ .Env.DB_USER }}
+  datasource.db.password: {{ .Env.DB_PASS }}
+  datasource.db.databaseUrl: {{ .Env.DB_URL }}
+  datasource.db.databaseDriver: org.mariadb.jdbc.Driver
+
+realmName: {{ .Env.REALM }}
+
+keycloakConfig:
+    serverUrl: {{ .Env.KEYCLOAK_URL }}
+    authRealm: {{ .Env.KEYCLOAK_AUTH_REALM }}
+    username: {{ .Env.KEYCLOAK_USERNAME }}
+    password: {{ .Env.KEYCLOAK_PASSWORD }}
+    clientId: admin-cli
+    clientSecret:
+    grantType: password
+
+shiroConfig:
+  iniConfigs: ["classpath:shiro.ini"]
+
+emailConfig:
+    emailServiceUrl: {{ .Env.EMAIL_SERVICE_URL }}
+    senderAddress: {{ .Env.EMAIL_SENDER_ADDR }}
+    replyToAddress: {{ .Env.EMAIL_REPLY_TO_ADDR }}
+    newsletterFrequencyHours: {{ .Env.NEWSLETTER_FREQUENCY_HOURS }}
+    reminderFrequencyHours: {{ .Env.REMINDER_FREQUENCY_HOURS }}
+    reminderThresholdDays: {{ .Env.REMINDER_THRESHOLD_DAYS }}
+    newsletterUnsubscribeLinkTemplate: {{ .Env.NEWSLETTER_UNSUBSCRIBE_LINK_TEMPLATE }}

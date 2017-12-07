@@ -1,0 +1,15 @@
+Kedves feliratkozó!
+
+A következő adatfrissítések történtek az elmúlt időszakban:
+
+#foreach($update in $updateList)
+- $update.dataOwnerLongName - $update.date
+    #foreach($document in $update.documentList)
+    - $document.title - $document.providedDate
+    #end
+
+#end
+
+A hírlevélről ezen a linken iratkozhat le: $unsubscribeLink
+
+Active Publisher Tracker
