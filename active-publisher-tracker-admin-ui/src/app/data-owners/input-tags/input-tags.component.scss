@@ -1,0 +1,112 @@
+#Input_tags {
+
+  .tags-selection-container {
+    padding: 0;
+    max-width: 500px;
+
+    &.focus {
+      color: #495057;
+      background-color: #fff;
+      border-color: #80bdff;
+      outline: none;
+    }
+
+    &.invalid {
+      border-color: #dc3545 !important;
+
+      &.focus {
+        box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);;
+      }
+    }
+
+    &.valid {
+      border-color: #28a745 !important;
+
+      &.focus {
+        box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+      }
+    }
+
+    .tags-selection {
+      box-sizing: border-box;
+      list-style: none;
+      margin: 0;
+      padding: 0 5px;
+      width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      display: flex;
+      flex-wrap: wrap;
+
+      .tag {
+        list-style: none;
+        background-color: #007bff;
+        border-radius: 4px;
+        cursor: default;
+        float: left;
+        margin-right: 5px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        padding: 2px 5px;
+        display: inline-flex;
+        font-size: 1rem;
+        line-height: 1.25;
+        color: #ffffff;
+
+        max-width: 300px;
+
+        .tag-label {
+          text-overflow: ellipsis;
+          overflow: hidden;
+          padding-right: 3px;
+        }
+
+        .tag-remove {
+          color: #ffffff;
+          cursor: pointer;
+          display: inline-block;
+          font-weight: bold;
+          padding-left: 5px;
+          border-left: 1px solid rgba(255, 255, 255, 0.4);
+        }
+      }
+
+      .input-container {
+        display: inline-flex;
+        list-style: none;
+        flex: 1;
+
+        input {
+          flex: 1;
+          background: transparent;
+          border: none;
+          outline: 0;
+          box-shadow: none;
+          -webkit-appearance: textfield;
+          box-sizing: border-box;
+          font-size: 100%;
+          margin-top: 5px;
+          margin-bottom: 5px;
+          padding: 0;
+
+        }
+        input::-webkit-input-placeholder {
+          color: #868e96;
+          opacity: 1;
+        }
+        input:-ms-input-placeholder {
+          color: #868e96;
+          opacity: 1;
+        }
+        input::placeholder {
+          color: #868e96;
+          opacity: 1;
+        }
+      }
+
+    }
+
+  }
+
+}

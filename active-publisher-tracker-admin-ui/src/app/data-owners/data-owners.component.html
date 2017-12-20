@@ -1,0 +1,386 @@
+<section id="Data_owners_main">
+  <section id="Data_owners_alerts">
+    <div class="row">
+      <div class="col-12">
+        <div *ngIf="errorLoad">
+          <ngb-alert type="danger" (close)="closeAlert('errorLoad')">
+            {{translationKey + 'errorLoad' | translate}}
+          </ngb-alert>
+        </div>
+        <div *ngIf="errorModify">
+          <ngb-alert type="danger" (close)="closeAlert('errorModify')">
+            {{translationKey + 'errorModify' | translate}}
+            <span *ngIf="errorNotUniqueName">{{translationKey + 'errorNotUniqueName' | translate}}</span>
+          </ngb-alert>
+        </div>
+        <div *ngIf="errorAdd">
+          <ngb-alert type="danger" (close)="closeAlert('errorAdd')">
+            {{translationKey + 'errorAdd' | translate}}
+            <span *ngIf="errorNotUniqueName">{{translationKey + 'errorNotUniqueName' | translate}}</span>
+          </ngb-alert>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="Data_owners_filter">
+    <form *ngIf="filterForm" [formGroup]="filterForm">
+      <div class="row">
+        <div class="col-md-3 col-sm-12">
+          <button type="button"
+                  class="btn btn-primary btn-new-data-owner"
+                  (click)="initAddForm()">
+            <i class="fa fa-plus"></i> {{translationKey + 'add_new_data_owner' | translate}}
+          </button>
+        </div>
+        <div class="col-md-3 col-sm-12">
+          <app-input-button-dropdown formControlName="dataOwnerName"
+                                     [options]="dataOwnerOptions"></app-input-button-dropdown>
+        </div>
+        <div class="col-md-3 col-sm-12">
+          <app-multi-select *ngIf="crawlers && crawlers.length"
+                            [options]="crawlers"
+                            [multi]="false"
+                            [placeholder]="translationKey + 'crawler_select_label' | translate"
+                            formControlName="crawlerUserId"></app-multi-select>
+        </div>
+        <div class="col-md-3 col-sm-12">
+          <div class="custom-checkbox-container">
+            <span class="error-checkbox-label">{{translationKey + 'error_checkbox_label' | translate}}</span>
+            <app-custom-checkbox class="error-checkbox" formControlName="isNoData"></app-custom-checkbox>
+          </div>
+        </div>
+      </div>
+    </form>
+  </section>
+  <section id="Data_owners_table">
+    <div class="row">
+      <div class="col-12">
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th>{{translationKey + 'table.id' | translate}}</th>
+            <th>{{translationKey + 'table.data_owner_name' | translate}}</th>
+            <th>{{translationKey + 'table.data_owner_short_name' | translate}}</th>
+            <th>{{translationKey + 'table.email' | translate}}</th>
+            <th>{{translationKey + 'table.weight' | translate}}</th>
+            <th>{{translationKey + 'table.description' | translate}}</th>
+            <th>{{translationKey + 'table.edit' | translate}}</th>
+            <th>{{translationKey + 'table.info' | translate}}</th>
+          </tr>
+          </thead>
+          <tbody>
+
+          <form class="tr" *ngIf="addForm" [formGroup]="addForm">
+            <div class="td"></div>
+            <div class="td">
+              <input type="text"
+                     formControlName="longName"
+                     class="form-control"
+                     [class.is-invalid]="addForm.get('longName').touched && addForm.get('longName').invalid"
+                     [class.is-valid]="addForm.get('longName').touched && addForm.get('longName').valid"
+                     [placeholder]="translationKey + 'form.long_name_placeholder' | translate">
+              <div *ngIf="addForm.get('longName').touched && addForm.get('longName').invalid" class="invalid-feedback">
+                <span *ngIf="addForm.get('longName').errors?.required">
+                  {{translationKey + 'form.required' | translate}}
+                </span>
+                <span *ngIf="addForm.get('longName').errors?.maxlength">
+                  {{translationKey + 'form.too_long' | translate}}
+                </span>
+              </div>
+            </div>
+            <div class="td">
+              <input type="text"
+                     formControlName="shortName"
+                     class="form-control"
+                     [class.is-invalid]="addForm.get('shortName').touched && addForm.get('shortName').invalid"
+                     [class.is-valid]="addForm.get('shortName').touched && addForm.get('shortName').valid"
+                     [placeholder]="translationKey + 'form.short_name_placeholder' | translate">
+              <div *ngIf="addForm.get('shortName').touched && addForm.get('shortName').invalid"
+                   class="invalid-feedback">
+                <span *ngIf="addForm.get('shortName').errors?.maxlength">
+                  {{translationKey + 'form.too_long' | translate}}
+                </span>
+              </div>
+            </div>
+            <div class="td">
+              <app-input-tags formControlName="emails"
+                              [invalid]="addForm.get('emails').touched && addForm.get('emails').invalid"
+                              [valid]="addForm.get('emails').touched && addForm.get('emails').valid"
+                              [placeholder]="translationKey + 'form.emails_placeholder' | translate"></app-input-tags>
+              <div *ngIf="addForm.get('emails').touched && addForm.get('emails').invalid" class="invalid-feedback">
+                <span *ngIf="addForm.get('emails').errors?.required">
+                  {{translationKey + 'form.required' | translate}}
+                </span>
+                <span *ngIf="addForm.get('emails').errors?.forbiddenEmail">
+                  {{translationKey + 'form.invalid_emails' | translate}}
+                </span>
+              </div>
+            </div>
+            <div class="td">
+              <input type="text"
+                     formControlName="weight"
+                     class="form-control weight"
+                     [class.is-invalid]="addForm.get('weight').touched && addForm.get('weight').invalid"
+                     [class.is-valid]="addForm.get('weight').touched && addForm.get('weight').valid"
+                     [placeholder]="translationKey + 'form.weight_placeholder' | translate">
+              <div *ngIf="addForm.get('weight').touched && addForm.get('weight').invalid" class="invalid-feedback">
+                <span *ngIf="addForm.get('weight').errors?.forbiddenDecimalPattern">
+                  {{translationKey + 'form.weight_not_number_in_range' | translate: {min: defaultWeightMin | number:'1.1-1', max: defaultWeightMax | number:'1.1-1'} }}
+                </span>
+                <span *ngIf="addForm.get('weight').errors?.forbiddenDecimalLength">
+                  {{translationKey + 'form.weight_not_with_one_decimal' | translate}}
+                </span>
+              </div>
+            </div>
+            <div class="td">
+              <textarea formControlName="description"
+                        class="form-control"
+                        [class.is-invalid]="addForm.get('description').touched && addForm.get('description').invalid"
+                        [class.is-valid]="addForm.get('description').touched && addForm.get('description').valid"
+                        [placeholder]="translationKey + 'form.description_placeholder' | translate"></textarea>
+              <div *ngIf="addForm.get('description').touched && addForm.get('description').invalid"
+                   class="invalid-feedback">
+                <span *ngIf="addForm.get('description').errors?.maxlength">
+                  {{translationKey + 'form.too_long' | translate}}
+                </span>
+              </div>
+            </div>
+            <div class="td">
+              <a *ngIf="pending" class="btn btn-link"><i class="fa fa-fw fa-spinner fa-pulse text-primary"></i></a>
+              <div class="btn-group">
+                <ng-template #addTooltipContent>{{translationKey + 'form.add_tooltip' | translate}}</ng-template>
+                <button *ngIf="!pending"
+                        class="btn btn-link"
+                        type="button"
+                        [disabled]="loading || addForm.invalid"
+                        (click)="addDataOwner(addForm.value)"
+                        [ngbTooltip]="addTooltipContent"
+                        container="body">
+                  <span class="fa fa-fw fa-check"></span>
+                </button>
+                <ng-template #cancelAddTooltipContent>{{translationKey + 'form.cancel_tooltip' | translate}}
+                </ng-template>
+                <button *ngIf="!pending"
+                        class="btn btn-link"
+                        type="button"
+                        [disabled]="loading"
+                        (click)="cancelAdd()"
+                        [ngbTooltip]="cancelAddTooltipContent"
+                        container="body">
+                  <span class="fa fa-fw fa-ban"></span>
+                </button>
+              </div>
+            </div>
+            <div class="td"></div>
+          </form>
+
+          <form *ngFor="let dataOwner of dataOwners" [formGroup]="modifyForm" class="tr">
+            <div class="td">{{dataOwner.uuid}}</div>
+            <div class="td">
+              <div *ngIf="isInEdit(dataOwner)">
+                <input type="text"
+                       formControlName="longName"
+                       class="form-control"
+                       [class.is-invalid]="modifyForm.get('longName').touched && modifyForm.get('longName').invalid"
+                       [class.is-valid]="modifyForm.get('longName').touched && modifyForm.get('longName').valid"
+                       [placeholder]="translationKey + 'form.long_name_placeholder' | translate">
+                <div *ngIf="modifyForm.get('longName').touched && modifyForm.get('longName').invalid"
+                     class="invalid-feedback">
+                  <span *ngIf="modifyForm.get('longName').errors?.required">
+                    {{translationKey + 'form.required' | translate}}
+                  </span>
+                  <span *ngIf="modifyForm.get('longName').errors?.maxlength">
+                    {{translationKey + 'form.too_long' | translate}}
+                  </span>
+                </div>
+              </div>
+              <div *ngIf="!isInEdit(dataOwner)" [ngbTooltip]="dataOwner.longName" placement="top" class="long-name">
+                <span>{{dataOwner.longName}}</span>
+              </div>
+            </div>
+            <div class="td">
+              <div *ngIf="isInEdit(dataOwner)">
+                <input type="text"
+                       formControlName="shortName"
+                       class="form-control"
+                       [class.is-invalid]="modifyForm.get('shortName').touched && modifyForm.get('shortName').invalid"
+                       [class.is-valid]="modifyForm.get('shortName').touched && modifyForm.get('shortName').valid"
+                       [placeholder]="translationKey + 'form.short_name_placeholder' | translate">
+                <div *ngIf="modifyForm.get('shortName').touched && modifyForm.get('shortName').invalid"
+                     class="invalid-feedback">
+                  <span *ngIf="modifyForm.get('shortName').errors?.maxlength">
+                    {{translationKey + 'form.too_long' | translate}}
+                  </span>
+                </div>
+              </div>
+              <div *ngIf="!isInEdit(dataOwner)" [ngbTooltip]="dataOwner.shortName" placement="top" class="short-name">
+                <span>{{dataOwner.shortName}}</span>
+              </div>
+            </div>
+            <div class="td">
+              <div *ngIf="isInEdit(dataOwner)">
+                <app-input-tags formControlName="emails"
+                                [invalid]="modifyForm.get('emails').touched && modifyForm.get('emails').invalid"
+                                [valid]="modifyForm.get('emails').touched && modifyForm.get('emails').valid"
+                                [placeholder]="translationKey + 'form.emails_placeholder' | translate"></app-input-tags>
+                <div *ngIf="modifyForm.get('emails').touched && modifyForm.get('emails').invalid"
+                     class="invalid-feedback">
+                  <span *ngIf="modifyForm.get('emails').errors?.required">
+                    {{translationKey + 'form.required' | translate}}
+                  </span>
+                  <span *ngIf="modifyForm.get('emails').errors?.forbiddenEmail">
+                    {{translationKey + 'form.invalid_emails' | translate}}
+                  </span>
+                </div>
+              </div>
+              <div *ngIf="!isInEdit(dataOwner)">
+                <span *ngFor="let email of dataOwner.emails"
+                      class="badge badge-primary"
+                      [ngbTooltip]="email"
+                      container="body"
+                      placement="top">
+                  {{email}}
+                </span>
+              </div>
+            </div>
+            <div class="td">
+              <div *ngIf="isInEdit(dataOwner)">
+                <input type="text"
+                       formControlName="weight"
+                       class="form-control weight"
+                       [class.is-invalid]="modifyForm.get('weight').touched && modifyForm.get('weight').invalid"
+                       [class.is-valid]="modifyForm.get('weight').touched && modifyForm.get('weight').valid"
+                       [placeholder]="translationKey + 'form.weight_name_placeholder' | translate">
+                <div *ngIf="modifyForm.get('weight').touched && modifyForm.get('weight').invalid" class="invalid-feedback">
+                  <span *ngIf="modifyForm.get('weight').errors?.forbiddenDecimalPattern">
+                    {{translationKey + 'form.weight_not_number_in_range' | translate: {min: defaultWeightMin | number:'1.1-1', max: defaultWeightMax | number:'1.1-1'} }}
+                  </span>
+                  <span *ngIf="modifyForm.get('weight').errors?.forbiddenDecimalLength">
+                    {{translationKey + 'form.weight_not_with_one_decimal' | translate}}
+                  </span>
+                </div>
+              </div>
+              <div *ngIf="!isInEdit(dataOwner)">{{dataOwner.weight}}</div>
+            </div>
+            <div class="td">
+              <div *ngIf="isInEdit(dataOwner)" class="description">
+                <textarea formControlName="description"
+                          class="form-control"
+                          [class.is-invalid]="modifyForm.get('description').touched && modifyForm.get('description').invalid"
+                          [class.is-valid]="modifyForm.get('description').touched && modifyForm.get('description').valid"
+                          [placeholder]="translationKey + 'form.description_placeholder' | translate"></textarea>
+                <div *ngIf="modifyForm.get('description').touched && modifyForm.get('description').invalid"
+                     class="invalid-feedback">
+                  <span *ngIf="modifyForm.get('description').errors?.maxlength">
+                    {{translationKey + 'form.too_long' | translate}}
+                  </span>
+                </div>
+              </div>
+              <div *ngIf="!isInEdit(dataOwner)" class="description read-only" [class.open]="isOpenDescription(dataOwner.id)">
+                <span *ngIf="isOpenDescription(dataOwner.id)">{{dataOwner.description}}</span>
+                <span *ngIf="!isOpenDescription(dataOwner.id)">{{dataOwner.description | truncate: 25}}</span>
+              </div>
+              <div *ngIf="!isInEdit(dataOwner) && dataOwner.description && dataOwner.description.split(' ').length > 25"
+                   class="show-all-text"
+                   (click)="openDescription(dataOwner.id)">
+                <span *ngIf="isOpenDescription(dataOwner.id)">
+                  {{translationKey + 'table.hide_text' | translate}}
+                  <i class="fa fa-fw fa-angle-up"></i>
+                </span>
+                <span *ngIf="!isOpenDescription(dataOwner.id)">
+                  {{translationKey + 'table.show_all_text' | translate}}
+                  <i class="fa fa-fw fa-angle-down"></i>
+                </span>
+              </div>
+            </div>
+            <div class="td">
+              <div *ngIf="isInEdit(dataOwner)">
+                <a *ngIf="pending" class="btn btn-link"><i class="fa fa-fw fa-spinner fa-pulse text-primary"></i></a>
+                <div class="btn-group">
+                  <ng-template #modifyTooltipContent>{{translationKey + 'form.modify_tooltip' | translate}}
+                  </ng-template>
+                  <button *ngIf="!pending"
+                          class="btn btn-link"
+                          type="button"
+                          [disabled]="loading || modifyForm.invalid || !isDataOwnerChanged(modifyForm.value)"
+                          (click)="modifyDataOwner(modifyForm.value)"
+                          [ngbTooltip]="modifyTooltipContent"
+                          container="body">
+                    <span class="fa fa-fw fa-check"></span>
+                  </button>
+                  <ng-template #cancelTooltipContent>{{translationKey + 'form.cancel_tooltip' | translate}}
+                  </ng-template>
+                  <button *ngIf="!pending"
+                          class="btn btn-link"
+                          type="button"
+                          [disabled]="loading"
+                          (click)="cancelEdit()"
+                          [ngbTooltip]="cancelTooltipContent"
+                          container="body">
+                    <span class="fa fa-fw fa-ban"></span>
+                  </button>
+                </div>
+              </div>
+              <div *ngIf="!isInEdit(dataOwner)">
+                <ng-template #editTooltipContent>{{translationKey + 'form.edit_tooltip' | translate}}</ng-template>
+                <button *ngIf="!pending"
+                        class="btn btn-link"
+                        type="button"
+                        [disabled]="pending || loading"
+                        (click)="editDataOwner(dataOwner)"
+                        [ngbTooltip]="editTooltipContent"
+                        container="body">
+                  <span class="fa fa-fw fa-edit"></span>
+                </button>
+              </div>
+            </div>
+            <div class="td">
+              <div class="btn-group">
+                <ng-template #lastHarvestDateTooltipContent>
+                  {{translationKey + 'form.last_harvest_date' | translate}}
+                  {{dataOwner.detail.lastSuccessfulHarvestDate | date:'yyyy.MM.dd.'}}
+                </ng-template>
+                <a *ngIf="dataOwner && dataOwner.detail && dataOwner.detail.lastSuccessfulHarvestDate"
+                   class="btn btn-link"
+                   [ngbTooltip]="lastHarvestDateTooltipContent"
+                   container="body">
+                  <i class="fa fa-fw fa-calendar text-primary"></i>
+                </a>
+                <ng-template #crawlerNameTooltipContent>
+                  {{translationKey + 'form.crawler_name' | translate: {crawler: dataOwner.detail.crawlerName} }}
+                </ng-template>
+                <a *ngIf="dataOwner && dataOwner.detail && dataOwner.detail.crawlerName"
+                   class="btn btn-link"
+                   [ngbTooltip]="crawlerNameTooltipContent"
+                   container="body">
+                  <i class="fa fa-fw fa-users text-primary"></i>
+                </a>
+                <ng-template #errorTooltipContent>
+                  {{translationKey + 'form.error' | translate}} {{translationKey + 'form.no_data' | translate}}
+                </ng-template>
+                <a *ngIf="dataOwner && dataOwner.detail && dataOwner.detail.error"
+                   class="btn btn-link"
+                   [ngbTooltip]="errorTooltipContent"
+                   container="body">
+                  <i class="fa fa-fw fa-exclamation-triangle text-primary"></i>
+                </a>
+              </div>
+            </div>
+          </form>
+
+          </tbody>
+        </table>
+        <div class="pagination-container">
+          <ngb-pagination *ngIf="totalCount && totalCount > row"
+                          [collectionSize]="totalCount"
+                          [(page)]="currentPage"
+                          [pageSize]="row"
+                          [maxSize]="5"
+                          [rotate]="true"
+                          [boundaryLinks]="true"
+                          (pageChange)="onPageChange($event)"></ngb-pagination>
+        </div>
+      </div>
+    </div>
+  </section>
+</section>

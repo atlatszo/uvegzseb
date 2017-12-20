@@ -1,0 +1,30 @@
+<section id="Input_tags">
+  <span class="tags-selection-container form-control"
+        [class.focus]="focused"
+        [class.valid]="valid"
+        [class.invalid]="invalid">
+    <ul class="tags-selection">
+      <li *ngFor="let tag of tags" class="tag">
+        <span class="tag-label" [ngbTooltip]="tag" placement="top">{{tag}}</span>
+        <span class="tag-remove" (click)="removeTag(tag)">×</span>
+      </li>
+      <li class="input-container">
+        <input id="tag-input"
+               type="search"
+               autocomplete="off"
+               autocorrect="off"
+               autocapitalize="off"
+               spellcheck="false"
+               role="textbox"
+               aria-autocomplete="list"
+               [placeholder]="placeholder"
+               [(ngModel)]="input"
+               (focus)="onFocus()"
+               (blur)="onBlur()"
+               appInputTags
+               (separatorTyped)="initSeparator()"
+               (backspace)="removeLastTag()">
+      </li>
+    </ul>
+  </span>
+</section>

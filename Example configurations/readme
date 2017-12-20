@@ -1,0 +1,28 @@
+
+docker-compose up -d postgres
+docker-compose up -d nginx
+docker-compose up -d keycloak
+
+go to http://localhost:8080/auth/admin/master/console/#/create/client/master
+login with admin/admin
+01.png
+create a client with name master
+02.png
+set the url paths to:
+03.png
+get the client ID and $KEYCLOAK_CLIENT_SECRET with it in proxy.json
+restart keycloak-proxy with docker-compose restart keycloak-proxy
+go to realm settings / login and set the followings:
+05.png
+
+create role with name master
+06.png
+set master as default role
+07.png
+
+docker-compose up -d active-publisher-tracker-public-db
+
+docker-compose up -d
+
+in realm admin go to your admin user and set "master" role for it
+08.png

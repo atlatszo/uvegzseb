@@ -1,0 +1,58 @@
+<section id="Subscriptions">
+  <div class="row">
+    <div class="col-12">
+      <div *ngIf="errorLoad">
+        <ngb-alert type="danger" (close)="closeAlert('errorLoad')">
+          {{translationKey + 'errorLoad' | translate}}
+        </ngb-alert>
+      </div>
+      <div *ngIf="errorDelete">
+        <ngb-alert type="danger" (close)="closeAlert('errorDelete')">
+          {{translationKey + 'errorDelete' | translate}}
+        </ngb-alert>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <table class="table table-striped" [class.disabled]="pending || loading">
+        <thead>
+        <tr>
+          <th>{{translationKey + 'email_address' | translate}}</th>
+          <th>{{translationKey + 'subscription_date' | translate}}</th>
+          <th>{{translationKey + 'edit' | translate}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let subscription of subscriptions">
+          <td> {{subscription.email}}</td>
+          <td>{{subscription.subscriptionDate | date:'yyyy.MM.dd.'}}</td>
+          <td>
+            <span *ngIf="pending && isSubscriptionToDelete(subscription.id)"
+                  class="fa fa-fw fa-spinner fa-pulse text-primary"></span>
+            <ng-template #deleteTooltipContent>{{translationKey + 'delete_subscription_tooltip' | translate}}</ng-template>
+            <button *ngIf="!isSubscriptionToDelete(subscription.id)"
+                    class="btn btn-link"
+                    [disabled]="pending || loading"
+                    (click)="initDeleteSubscription(subscription)"
+                    [ngbTooltip]="deleteTooltipContent"
+                    container="body">
+              <span class="fa fa-fw fa-remove"></span>
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <div class="pagination-container">
+        <ngb-pagination *ngIf="totalCount && totalCount > row"
+                        [collectionSize]="totalCount"
+                        [(page)]="currentPage"
+                        [pageSize]="row"
+                        [maxSize]="5"
+                        [rotate]="true"
+                        [boundaryLinks]="true"
+                        (pageChange)="onPageChange($event)"></ngb-pagination>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,29 @@
+/* You can add global styles to this file, and also import other style files */
+
+.pagination {
+  justify-content: center;
+}
+
+button {
+  cursor: pointer;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+@media (min-width: 1600px) {
+  .container {
+    max-width: 1500px !important;
+  }
+}
+
+@media (min-width: 1920px) {
+  .container {
+    max-width: 1625px !important;
+  }
+}
+
+.tooltip-inner {
+  max-width: none !important;
+}

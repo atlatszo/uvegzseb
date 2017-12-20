@@ -1,0 +1,25 @@
+<section id="Header" *ngIf="isAdministrator">
+  <ul class="nav">
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/administrators" routerLinkActive="active">
+        {{translationKey + 'administrators' | translate}}
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/data-owners" routerLinkActive="active">
+        {{translationKey + 'data_owners' | translate}}
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/subscriptions" routerLinkActive="active">
+        {{translationKey + 'subscriptions' | translate}}
+      </a>
+    </li>
+    <li *ngIf="logoutLink" class="nav-item ml-auto">
+      <a class="nav-link" [href]="logoutLink">
+        <i class="fa fa-fw fa-sign-out"></i> {{translationKey + 'logout' | translate}}
+      </a>
+    </li>
+  </ul>
+</section>
+<app-load-bar></app-load-bar>

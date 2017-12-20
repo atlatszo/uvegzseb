@@ -1,0 +1,22 @@
+<div id="Rank_table">
+  <div>
+    <h4>
+      {{translationKey + 'ranking' | translate}}
+      <ng-template #informationTooltipContent>{{translationKey + 'ranking_information_tooltip' | translate}}</ng-template>
+      <i class="fa fa-info-circle" aria-hidden="true" [ngbTooltip]="informationTooltipContent" container="body" placement="bottom"></i>
+    </h4>
+  </div>
+  <ul class="ranking-list"
+      infiniteScroll
+      [scrollWindow]="false"
+      [infiniteScrollDistance]="2"
+      [infiniteScrollThrottle]="300"
+      (scrolled)="onScroll()">
+    <li *ngFor="let data of rankedData" class="ranking-item">
+      <div class="name" [ngbTooltip]="data.publisherName" container="body" placement="left">{{data.publisherName}}</div>
+      <div class="score">
+        <span class="badge badge-secondary">{{data.score | number:'1.1-1'}}</span>
+      </div>
+    </li>
+  </ul>
+</div>

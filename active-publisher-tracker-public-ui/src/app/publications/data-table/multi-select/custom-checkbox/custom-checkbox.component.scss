@@ -1,0 +1,95 @@
+$fill: #007bff;
+$fill-hover: #006ce0;
+$fill-empty: #fbfbfb;
+$fill-disabled-empty: #adadad;
+$fill-disabled-empty-dark: #929292;
+$fill-disabled-hover: #adadad;
+$border-checked: #dddddd;
+
+#Custom_checkbox {
+
+  .control {
+    font-size: 18px;
+    position: relative;
+    display: block;
+    height: 20px;
+    width: 20px;
+    margin: 0 auto;
+    cursor: pointer;
+    line-height: 24px;
+
+    &.control--checkbox .control__indicator:after {
+      top: 2px;
+      left: 6px;
+      width: 6px;
+      height: 12px;
+      -webkit-transform: rotate(45deg);
+      -moz-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      -o-transform: rotate(45deg);
+      transform: rotate(45deg);
+      border: solid $fill-empty;
+      border-width: 0 2px 2px 0;
+    }
+
+    .control__indicator {
+      position: absolute;
+      top: 2px;
+      left: 0;
+      width: 20px;
+      height: 20px;
+      border: 1px solid $fill;
+      border-radius: 3px;
+      background-color: $fill-empty;
+
+      &:after {
+        position: absolute;
+        display: none;
+        content: '';
+      }
+
+      &.disabled {
+        border: 1px solid $fill-disabled-empty-dark;
+        cursor: not-allowed;
+      }
+
+      &.checked {
+        background-color: $fill;
+        border-color: $border-checked;
+
+        &.disabled {
+          background-color: $fill-disabled-empty;
+
+          &:after {
+            display: block;
+          }
+        }
+
+        &:after {
+          display: block;
+        }
+      }
+
+      &.disabled {
+        background-color: $fill-disabled-empty;
+      }
+
+      &:hover {
+        background-color: $fill-empty;
+
+        &.checked {
+          background-color: $fill-hover;
+
+          &.disabled {
+            background-color: $fill-disabled-hover;
+          }
+        }
+
+        &.disabled {
+          background-color: $fill-disabled-hover;
+        }
+      }
+    }
+
+  }
+}

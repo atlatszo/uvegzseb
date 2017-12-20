@@ -1,0 +1,102 @@
+{
+  "header": {
+    "administrators": "Administrators",
+    "data_owners": "Data owners",
+    "subscriptions": "Subscriptions",
+    "logout": "Logout"
+  },
+  "unauthorized": {
+    "unauthorized_role": "You are unauthorized to access this page!",
+    "redirect_message": "You will be redirected to the public page in {{count}} seconds!"
+  },
+  "administrators": {
+    "add_new_user": "New account",
+    "administrator": "Administrator",
+    "last_login_date": "Last login date",
+    "email_address": "E-mail address",
+    "edit": "Edit",
+    "errorAdd": "There was a server error! Couldn't add account!",
+    "errorNotUniqueEmail": "An account with this e-mail address already exists!",
+    "errorModify": "There was a server error! Couldn't modify account!",
+    "errorDelete": "There was a server error! Couldn't delete account!",
+    "errorLoad": "There was a server error! Couldn't load users!",
+    "form": {
+      "edit_tooltip": "Edit",
+      "delete_tooltip": "Delete",
+      "add_tooltip": "Save",
+      "modify_tooltip": "Modify",
+      "cancel_tooltip": "Cancel",
+      "email_placeholder": "E-mail",
+      "password_placeholder": "Password",
+      "confirm_password_placeholder": "Confirm password",
+      "too_long": "Password is too long.",
+      "too_short": "Must be at least {{minLength}} characters.",
+      "required": "Required field.",
+      "invalid_email": "Please provide a valid e-mail address.",
+      "not_same_password": "Passwords don't match."
+    }
+  },
+  "delete_account_modal": {
+    "title": "Delete account",
+    "prompt": "Do you really want to delete the following account?",
+    "delete_btn": "Delete",
+    "cancel_btn": "Cancel"
+  },
+  "subscriptions": {
+    "email_address": "Email address",
+    "subscription_date": "Subscription date",
+    "edit": "Edit",
+    "delete_subscription_tooltip": "Delete subscription",
+    "errorDelete": "There was a server error! Couldn't delete subscription!",
+    "errorLoad": "There was a server error! Couldn't load subscriptions!"
+  },
+  "delete_subscription_modal": {
+    "title": "Delete subscription",
+    "prompt": "Do you really want to delete the following subscription?",
+    "delete_btn": "Delete",
+    "cancel_btn": "Cancel",
+    "errorDelete": "There was a server error! Couldn't delete subscription!",
+    "errorLoad": "There was a server error! Couldn't load subscriptions!"
+  },
+  "data_owners": {
+    "add_new_data_owner": "New data-owner",
+    "error_checkbox_label": "No crawled data",
+    "crawler_select_label": "Select crawler",
+    "table": {
+      "id": "ID",
+      "data_owner_name": "Data-owner name",
+      "data_owner_short_name": "Short name",
+      "email": "E-mail",
+      "weight": "Weight",
+      "description": "Description",
+      "show_all_text": "Show all",
+      "hide_text": "Hide",
+      "edit": "Edit",
+      "info": "Info"
+    },
+    "errorAdd": "There was a server error! Couldn't add data-owner!",
+    "errorNotUniqueName": "A data-owner with this name already exists!",
+    "errorModify": "There was a server error! Couldn't modify data-owner!",
+    "errorLoad": "There was a server error! Couldn't load data-owners!",
+    "form": {
+      "too_long": "Too long value.",
+      "required": "Required field.",
+      "invalid_emails": "Please provide valid e-mail addresses.",
+      "weight_not_number_in_range": "Value must be a number in range of {{min}} to {{max}}.",
+      "weight_not_with_one_decimal": "Only one decimal place is allowed.",
+      "emails_placeholder": "Type to add e-mail",
+      "short_name_placeholder": "Short name",
+      "long_name_placeholder": "Data-owner name",
+      "weight_placeholder": "Weight",
+      "description_placeholder": "Description",
+      "add_tooltip": "Save",
+      "edit_tooltip": "Edit",
+      "modify_tooltip": "Modify",
+      "cancel_tooltip": "Cancel",
+      "last_harvest_date": "Last harvest date:",
+      "crawler_name": "Crawler name: {{crawler}}",
+      "error": "Error:",
+      "no_data": "No data"
+    }
+  }
+}

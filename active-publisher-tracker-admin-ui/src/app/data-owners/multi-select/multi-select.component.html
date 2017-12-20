@@ -1,0 +1,22 @@
+<section id="Multi_select">
+  <div class="multi-select-container">
+    <div class="btn-group" [class.clearable]="allowClear && isSelected()">
+      <button type="button" class="btn btn-primary btn-label" (click)="onBtnClick()" (blur)="hideMenu()">
+        <span *ngIf="optionsRef && optionsRef.length && !isSelected()" class="placeholder">{{getPlaceholder()}}</span>
+        <span *ngIf="optionsRef && optionsRef.length && isSelected()">{{getPlaceholder()}}</span>
+        <span *ngIf="!optionsRef || !optionsRef.length">No data available!</span>
+      </button>
+      <button type="button" class="btn btn-primary btn-clear" (click)="onClearClick()" [disabled]="isDisabled"> &times;</button>
+      <button type="button" class="btn btn-primary btn-caret" (click)="onBtnClick()" (blur)="hideMenu()" [disabled]="isDisabled"></button>
+    </div>
+    <ul *ngIf="optionsRef || optionsRef.length" class="dropdown-menu" [class.show]="open">
+      <li *ngFor="let option of optionsRef | sortSelectOptions: multi"
+          (mousedown)="onMenuItemClick($event, option)"
+          class="dropdown-item"
+          [class.selected]="option.selected">
+        <app-custom-checkbox *ngIf="multi" [isChecked]="option.selected" [displayOnly]="true"></app-custom-checkbox>
+        <span class="option-label">{{option.value}}</span>
+      </li>
+    </ul>
+  </div>
+</section>

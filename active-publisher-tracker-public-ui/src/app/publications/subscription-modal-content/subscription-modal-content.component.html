@@ -1,0 +1,42 @@
+<section id="Subscription_modal">
+  <div class="modal-header">
+    <h4 class="modal-title">{{translationKey + 'subscribe' | translate}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <form [formGroup]="emailForm" (submit)="subscribe(emailForm.get('email').value)">
+    <div class="modal-body">
+      <div>
+        <div *ngIf="isErrorSubscribe">
+          <ngb-alert type="danger" (close)="closeAlert()">{{translationKey + 'error_subscribe' | translate}}</ngb-alert>
+        </div>
+        <label for="email-input">{{translationKey + 'email' | translate}}:</label>
+        <input
+          id="email-input"
+          type="email"
+          class="form-control"
+          [class.is-invalid]="emailForm.get('email').touched && emailForm.get('email').invalid"
+          [class.is-valid]="emailForm.get('email').touched && emailForm.get('email').valid"
+          formControlName="email"
+        >
+        <div *ngIf="emailForm.get('email').touched && emailForm.get('email').invalid" class="invalid-feedback">
+          {{translationKey + 'error-invalid-email' | translate}}
+        </div>
+      </div>
+      <div class="recaptcha-container">
+        <div class="recaptcha">
+          <re-captcha *ngIf="reCaptchaSiteKey"
+                      (resolved)="resolved($event)"
+                      [siteKey]="reCaptchaSiteKey"
+          ></re-captcha>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-primary" [disabled]="!isAcceptedReCaptcha || this.emailForm.invalid">
+        {{translationKey + 'subscribe' | translate}}
+      </button>
+    </div>
+  </form>
+</section>

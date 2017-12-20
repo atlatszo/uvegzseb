@@ -1,0 +1,35 @@
+{
+  "header": {
+    "home": "Home",
+    "publications": "Publications",
+    "data-owners": "Data owners",
+    "how-it-works": "How it works"
+  },
+  "footer": {
+    "impressum": "Impressum",
+    "legal-notice": "Legal notice",
+    "about": "About"
+  },
+  "rankTable": {
+    "ranking": "Ranking",
+    "ranking_information_tooltip": "The best publisher always gets 5 stars, and the worst publisher always gets 0. The others get a relative score in-between. Currently, we only consider the number of documents when calculating the score: a publisher can get a higher score by producing more documents."
+  },
+  "subscriptionModal": {
+    "subscribe": "Subscribe",
+    "email": "E-mail",
+    "error-invalid-email": "Invalid E-mail adresss!",
+    "error_subscribe": "There was a server error! Couldn't subscribe e-mail address!"
+  },
+  "unsubscribe": {
+    "failed-unsubscribe": "Failed to unsubscribe!",
+    "successful-unsubscribe": "Successfully unsubscribed!"
+  },
+  "dataTable": {
+    "dataOwner": "Data owner",
+    "lastUpdate": "Last Update",
+    "category": "Category",
+    "info": "Info",
+    "detail_tooltip": "Click for details"
+  },
+  "page_placeholder_text": "Placeholder text for the {{page}} page."
+}

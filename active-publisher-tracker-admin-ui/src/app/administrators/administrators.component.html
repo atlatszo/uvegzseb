@@ -1,0 +1,283 @@
+<section id="Administrators">
+  <div class="row row-spacey">
+    <div class="col-12">
+      <div *ngIf="errorLoad">
+        <ngb-alert type="danger" (close)="closeAlert('errorLoad')">
+          {{translationKey + 'errorLoad' | translate}}
+        </ngb-alert>
+      </div>
+      <div *ngIf="errorModify">
+        <ngb-alert type="danger" (close)="closeAlert('errorModify')">
+          {{translationKey + 'errorModify' | translate}}
+          <span *ngIf="errorNotUniqueEmail">{{translationKey + 'errorNotUniqueEmail' | translate}}</span>
+        </ngb-alert>
+      </div>
+      <div *ngIf="errorAdd">
+        <ngb-alert type="danger" (close)="closeAlert('errorAdd')">
+          {{translationKey + 'errorAdd' | translate}}
+          <span *ngIf="errorNotUniqueEmail">{{translationKey + 'errorNotUniqueEmail' | translate}}</span>
+        </ngb-alert>
+      </div>
+      <div *ngIf="errorDelete">
+        <ngb-alert type="danger" (close)="closeAlert('errorDelete')">
+          {{translationKey + 'errorDelete' | translate}}
+        </ngb-alert>
+      </div>
+    </div>
+  </div>
+  <div class="row row-spacey">
+    <div class="col-12">
+      <button type="button" class="btn btn-primary" [disabled]="!accounts || !accounts.length" (click)="initAddForm()">
+        <i class="fa fa-user-plus"></i> {{translationKey + 'add_new_user' | translate}}
+      </button>
+    </div>
+  </div>
+  <section id="Administrators_table">
+    <div class="row row-spacey">
+      <div class="col-12">
+        <table class="table table-striped">
+          <thead>
+          <tr class="d-flex">
+            <th class="col-6">{{translationKey + 'email_address' | translate}}</th>
+            <th class="col-2">{{translationKey + 'last_login_date' | translate}}</th>
+            <th class="col-2">{{translationKey + 'administrator' | translate}}</th>
+            <th class="col-2">{{translationKey + 'edit' | translate}}</th>
+          </tr>
+          </thead>
+          <tbody>
+
+          <form class="tr d-flex" *ngIf="addForm" [formGroup]="addForm">
+            <div class="td col-6">
+              <div class="row row-spacey">
+                <div class="col-md-5 col-sm-12">
+                  <input type="text"
+                         formControlName="email"
+                         class="form-control"
+                         [class.is-invalid]="addForm.get('email').touched && addForm.get('email').invalid"
+                         [class.is-valid]="addForm.get('email').touched && addForm.get('email').valid"
+                         [placeholder]="translationKey + 'form.email_placeholder' | translate">
+                  <div *ngIf="addForm.get('email').touched && addForm.get('email').invalid" class="invalid-feedback">
+                    <span *ngIf="addForm.get('email').errors?.required">
+                      {{translationKey + 'form.required' | translate}}
+                    </span>
+                    <span *ngIf="addForm.get('email').errors?.forbiddenEmail">
+                      {{translationKey + 'form.invalid_email' | translate}}
+                    </span>
+                  </div>
+                </div>
+                <div formGroupName="passwords" class="col-md-7 col-sm-12">
+                  <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                      <input type="password"
+                             formControlName="password"
+                             class="form-control"
+                             [class.is-invalid]="addForm.get('passwords.password').touched && addForm.get('passwords.password').invalid"
+                             [class.is-valid]="addForm.get('passwords.password').touched && addForm.get('passwords.password').valid"
+                             [placeholder]="translationKey + 'form.password_placeholder' | translate">
+                      <div *ngIf="addForm.get('passwords.password').touched && addForm.get('passwords.password').invalid"
+                           class="invalid-feedback">
+                        <span *ngIf="addForm.get('passwords.password').errors?.required">
+                          {{translationKey + 'form.required' | translate}}
+                        </span>
+                        <span *ngIf="addForm.get('passwords.password').errors?.passwordMinLengthRequired">
+                          {{translationKey + 'form.too_short' | translate: {minLength: passwordValidatorOptions.minLength} }}
+                        </span>
+                        <span *ngIf="addForm.get('passwords.password').errors?.passwordMaxLengthExceeded">
+                          {{translationKey + 'form.too_long' | translate}}
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                      <input type="password"
+                             formControlName="confirmPassword"
+                             class="form-control"
+                             [class.is-invalid]="addForm.get('passwords.confirmPassword').touched && addForm.get('passwords.confirmPassword').invalid"
+                             [class.is-valid]="addForm.get('passwords.confirmPassword').touched && addForm.get('passwords.confirmPassword').valid"
+                             [placeholder]="translationKey + 'form.confirm_password_placeholder' | translate">
+                      <div *ngIf="addForm.get('passwords.confirmPassword').touched && addForm.get('passwords.confirmPassword').invalid"
+                           class="invalid-feedback">
+                        <span *ngIf="addForm.get('passwords.confirmPassword').errors?.required">
+                          {{translationKey + 'form.required' | translate}}
+                        </span>
+                        <span *ngIf="addForm.get('passwords.confirmPassword').errors?.passwordMinLengthRequired">
+                          {{translationKey + 'form.too_short' | translate: {minLength: passwordValidatorOptions.minLength} }}
+                        </span>
+                        <span *ngIf="addForm.get('passwords.confirmPassword').errors?.passwordMaxLengthExceeded">
+                          {{translationKey + 'form.too_long' | translate}}
+                        </span>
+                        <span *ngIf="addForm.get('passwords.confirmPassword').errors?.matchOther">
+                          {{translationKey + 'form.not_same_password' | translate}}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="td col-2"></div>
+            <div class="td col-2">
+              <app-custom-checkbox formControlName="isAdmin"></app-custom-checkbox>
+            </div>
+            <div class="td col-2">
+              <a *ngIf="pending" class="btn btn-link"><i class="fa fa-fw fa-spinner fa-pulse text-primary"></i></a>
+              <div *ngIf="!pending" class="btn-group">
+                <ng-template #addTooltipContent>{{translationKey + 'form.add_tooltip' | translate}}</ng-template>
+                <button class="btn btn-link"
+                        type="button"
+                        [disabled]="loading || addForm.invalid"
+                        (click)="addAccount(addForm.value)"
+                        [ngbTooltip]="addTooltipContent"
+                        container="body">
+                  <span class="fa fa-fw fa-check"></span>
+                </button>
+                <ng-template #cancelAddTooltipContent>{{translationKey + 'form.cancel_tooltip' | translate}}
+                </ng-template>
+                <button class="btn btn-link"
+                        type="button"
+                        [disabled]="loading"
+                        (click)="cancelAdd()"
+                        [ngbTooltip]="cancelAddTooltipContent"
+                        container="body">
+                  <span class="fa fa-fw fa-ban"></span>
+                </button>
+              </div>
+            </div>
+          </form>
+
+          <form *ngFor="let account of accounts" [formGroup]="modifyForm" class="tr d-flex">
+            <div class="td col-6">
+              <div *ngIf="!isInEdit(account)" class="row">
+                <div class="col-12">
+                  {{account.email}}
+                </div>
+              </div>
+              <div *ngIf="isInEdit(account)" class="row">
+                <div class="col-md-5 col-sm-12">
+                  <input type="text"
+                         formControlName="email"
+                         class="form-control"
+                         [class.is-invalid]="modifyForm.get('email').touched && modifyForm.get('email').invalid"
+                         [class.is-valid]="modifyForm.get('email').touched && modifyForm.get('email').valid"
+                         [placeholder]="translationKey + 'form.email_placeholder' | translate">
+                  <div *ngIf="modifyForm.get('email').touched && modifyForm.get('email').invalid"
+                       class="invalid-feedback">
+                    <span *ngIf="modifyForm.get('email').errors?.required">
+                      {{translationKey + 'form.required' | translate}}
+                    </span>
+                    <span *ngIf="modifyForm.get('email').errors?.forbiddenEmail">
+                      {{translationKey + 'form.invalid_email' | translate}}
+                    </span>
+                  </div>
+                </div>
+                <div formGroupName="passwords" class="col-md-7 col-sm-12">
+                  <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                      <input type="password"
+                             formControlName="password"
+                             class="form-control"
+                             [class.is-invalid]="modifyForm.get('passwords.password').touched && modifyForm.get('passwords.password').invalid"
+                             [class.is-valid]="modifyForm.get('passwords.password').touched && modifyForm.get('passwords.password').valid"
+                             [placeholder]="translationKey + 'form.password_placeholder' | translate">
+                      <div *ngIf="modifyForm.get('passwords.password').touched && modifyForm.get('passwords.password').invalid"
+                           class="invalid-feedback">
+                        <span *ngIf="modifyForm.get('passwords.password').errors?.passwordMinLengthRequired">
+                          {{translationKey + 'form.too_short' | translate: {minLength: passwordValidatorOptions.minLength} }}
+                        </span>
+                        <span *ngIf="modifyForm.get('passwords.password').errors?.passwordMaxLengthExceeded">
+                          {{translationKey + 'form.too_long' | translate}}
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                      <input type="password"
+                             formControlName="confirmPassword"
+                             class="form-control"
+                             [class.is-invalid]="modifyForm.get('passwords.confirmPassword').touched && modifyForm.get('passwords.confirmPassword').invalid"
+                             [class.is-valid]="modifyForm.get('passwords.confirmPassword').touched && modifyForm.get('passwords.confirmPassword').valid"
+                             [placeholder]="translationKey + 'form.confirm_password_placeholder' | translate">
+                      <div class="invalid-feedback"
+                           *ngIf="modifyForm.get('passwords.confirmPassword').touched && modifyForm.get('passwords.confirmPassword').invalid">
+                        <span *ngIf="modifyForm.get('passwords.confirmPassword').errors?.passwordMinLengthRequired">
+                          {{translationKey + 'form.too_short' | translate: {minLength: passwordValidatorOptions.minLength} }}
+                        </span>
+                        <span *ngIf="modifyForm.get('passwords.confirmPassword').errors?.passwordMaxLengthExceeded">
+                          {{translationKey + 'form.too_long' | translate}}
+                        </span>
+                        <span *ngIf="modifyForm.get('passwords.confirmPassword').errors?.matchOther">
+                          {{translationKey + 'form.not_same_password' | translate}}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="td col-2">
+              {{account.lastLoginDate | date:'yyyy.MM.dd.'}}
+            </div>
+            <div class="td col-2">
+              <div *ngIf="!isInEdit(account)">
+                <app-custom-checkbox [isChecked]="isAdmin(account.role)" [isDisabled]="true"></app-custom-checkbox>
+              </div>
+              <div *ngIf="isInEdit(account)">
+                <app-custom-checkbox [isDisabled]="isLoggedInUser(account.email)"
+                                     [formControl]="modifyForm.controls['isAdmin']"></app-custom-checkbox>
+              </div>
+            </div>
+            <div class="td col-2">
+              <div *ngIf="!isInEdit(account)">
+                <ng-template #editTooltipContent>{{translationKey + 'form.edit_tooltip' | translate}}</ng-template>
+                <button class="btn btn-link"
+                        type="button"
+                        [disabled]="pending || loading"
+                        (click)="editAccount(account)"
+                        [ngbTooltip]="editTooltipContent"
+                        container="body">
+                  <span class="fa fa-fw fa-edit"></span>
+                </button>
+                <ng-template #deleteTooltipContent>{{translationKey + 'form.delete_tooltip' | translate}}</ng-template>
+                <button *ngIf="!isLoggedInUser(account.email)"
+                        class="btn btn-link"
+                        [disabled]="pending || loading"
+                        (click)="initDelete(account)"
+                        [ngbTooltip]="deleteTooltipContent"
+                        container="body">
+                  <span class="fa fa-fw fa-remove"></span>
+                </button>
+              </div>
+              <div *ngIf="isInEdit(account)">
+                <a *ngIf="pending" class="btn btn-link"><i class="fa fa-fw fa-spinner fa-pulse text-primary"></i></a>
+                <div class="btn-group">
+                  <ng-template #modifyTooltipContent>{{translationKey + 'form.modify_tooltip' | translate}}
+                  </ng-template>
+                  <button *ngIf="!pending"
+                          class="btn btn-link"
+                          type="button"
+                          [disabled]="loading || modifyForm.invalid || !isAccountChanged(modifyForm.value)"
+                          (click)="modifyAccount(modifyForm.value)"
+                          [ngbTooltip]="modifyTooltipContent"
+                          container="body">
+                    <span class="fa fa-fw fa-check"></span>
+                  </button>
+                  <ng-template #cancelTooltipContent>{{translationKey + 'form.cancel_tooltip' | translate}}
+                  </ng-template>
+                  <button *ngIf="!pending"
+                          class="btn btn-link"
+                          type="button"
+                          [disabled]="loading"
+                          (click)="cancelEdit()"
+                          [ngbTooltip]="cancelTooltipContent"
+                          container="body">
+                    <span class="fa fa-fw fa-ban"></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</section>

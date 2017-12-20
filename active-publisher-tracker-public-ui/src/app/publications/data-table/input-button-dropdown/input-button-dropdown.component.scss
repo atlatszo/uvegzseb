@@ -1,0 +1,51 @@
+#Input_button_dropdown {
+
+  .btn-group {
+    width: 100%;
+
+    &.clearable {
+      position: relative;
+
+      .selection-clear {
+        display: block;
+        position: absolute;
+        right: 34px;
+        top: 5px;
+        padding: 0 8px;
+        font-style: normal;
+        font-size: 1.2em;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        cursor: pointer;
+      }
+
+      input {
+        padding-right: 24px;
+      }
+    }
+
+    .selection-clear {
+      display: none;
+    }
+
+    input {
+      width: 100%;
+
+      &::-ms-clear { /* Remove IE default X */
+        display: none;
+      }
+
+      &.form-control {
+        border-bottom-right-radius: 0;
+        border-top-right-radius: 0;
+      }
+    }
+
+    .dropdown-toggle {
+      cursor: pointer;
+    }
+
+  }
+}
