@@ -1,7 +1,7 @@
 package com.precognox.publishertracker.background;
 
 import com.avaje.ebean.Ebean;
-import com.precognox.emailservice.beans.EmailDeliveryRequest;
+import com.precognox.publishertracker.beans.EmailDeliveryRequest;
 import com.precognox.publishertracker.DropwizardTestSkeleton;
 import com.precognox.publishertracker.PublisherTrackerConfiguration;
 import com.precognox.publishertracker.entities.Account;

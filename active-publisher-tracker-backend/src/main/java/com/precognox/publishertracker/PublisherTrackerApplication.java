@@ -1,6 +1,6 @@
 package com.precognox.publishertracker;
 
-import com.precognox.common.dropwizard.ebean.EbeanLiquibaseBundle;
+import com.precognox.publishertracker.ebean.EbeanLiquibaseBundle;
 import com.precognox.publishertracker.adminrs.UserInitRS;
 import com.precognox.publishertracker.background.NewsletterBackgroundJob;
 import com.precognox.publishertracker.background.ReminderEmailBackgroundJob;
@@ -18,7 +18,7 @@ import com.precognox.publishertracker.services.ScraperAccountService;
 import com.precognox.publishertracker.services.SubscriptionService;
 import com.precognox.publishertracker.services.UpdateService;
 import com.precognox.publishertracker.services.UserInitService;
-import com.precognox.tas.keycloak.services.KeycloakService;
+import com.precognox.publishertracker.services.KeycloakService;
 import io.dropwizard.Application;
 import io.dropwizard.configuration.EnvironmentVariableSubstitutor;
 import io.dropwizard.configuration.SubstitutingSourceProvider;

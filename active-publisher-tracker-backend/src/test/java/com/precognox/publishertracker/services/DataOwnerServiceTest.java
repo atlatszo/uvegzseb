@@ -12,7 +12,7 @@ import com.precognox.publishertracker.entities.DataOwnerEmail;
 import com.precognox.publishertracker.entities.Role;
 import com.precognox.publishertracker.entities.Update;
 import com.precognox.publishertracker.exceptions.NonUniqueEntityException;
-import com.precognox.tas.keycloak.services.KeycloakService;
+import com.precognox.publishertracker.services.KeycloakService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

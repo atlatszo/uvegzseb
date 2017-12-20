@@ -11,7 +11,7 @@ import com.precognox.publishertracker.entities.Document;
 import com.precognox.publishertracker.entities.Update;
 import com.precognox.publishertracker.enums.FilterErrorTypes;
 import com.precognox.publishertracker.util.DateFormatter;
-import com.precognox.tas.keycloak.services.KeycloakService;
+import com.precognox.publishertracker.services.KeycloakService;
 import org.keycloak.representations.idm.UserRepresentation;
 
 import java.util.Comparator;

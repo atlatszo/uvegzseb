@@ -1,0 +1,9 @@
+/build/
+
+/.gradle/
+/.nb-gradle/
+/.settings/
+/nbproject/
+/.idea/
+/*.iml
+/out/

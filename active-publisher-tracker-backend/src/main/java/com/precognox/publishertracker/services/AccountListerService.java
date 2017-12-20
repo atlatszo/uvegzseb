@@ -6,7 +6,7 @@ import com.precognox.publishertracker.entities.Account;
 import com.precognox.publishertracker.entities.Role;
 import com.precognox.publishertracker.exceptions.EntityNotFoundException;
 import com.precognox.publishertracker.util.DateFormatter;
-import com.precognox.tas.keycloak.services.KeycloakService;
+import com.precognox.publishertracker.services.KeycloakService;
 import org.keycloak.representations.idm.UserRepresentation;
 
 import java.time.LocalDateTime;

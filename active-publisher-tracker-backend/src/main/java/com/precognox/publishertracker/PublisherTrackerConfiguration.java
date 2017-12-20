@@ -1,6 +1,5 @@
 package com.precognox.publishertracker;
 
-import com.precognox.tas.keycloak.beans.KeycloakConfig;
 import io.dropwizard.Configuration;
 import lombok.Data;
 import org.secnod.dropwizard.shiro.ShiroConfiguration;
@@ -28,4 +27,14 @@ public class PublisherTrackerConfiguration extends Configuration {
         private String newsletterUnsubscribeLinkTemplate;
     }
 
+    @Data
+    public static class KeycloakConfig {
+        private String serverUrl;
+        private String authRealm;
+        private String username;
+        private String password;
+        private String clientId;
+        private String clientSecret;
+        private String grantType;
+    }
 }

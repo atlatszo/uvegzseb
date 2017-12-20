@@ -7,7 +7,7 @@ import com.precognox.publishertracker.entities.Role;
 import com.precognox.publishertracker.exceptions.EntityNotFoundException;
 import com.precognox.publishertracker.exceptions.NonUniqueEntityException;
 import com.precognox.publishertracker.exceptions.NotAuthorizedException;
-import com.precognox.tas.keycloak.services.KeycloakService;
+import com.precognox.publishertracker.services.KeycloakService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.keycloak.admin.client.resource.UserResource;

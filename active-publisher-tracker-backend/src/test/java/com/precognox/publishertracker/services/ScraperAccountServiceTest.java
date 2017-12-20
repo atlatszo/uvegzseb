@@ -10,7 +10,7 @@ import com.precognox.publishertracker.entities.Document;
 import com.precognox.publishertracker.entities.Role;
 import com.precognox.publishertracker.entities.Update;
 import com.precognox.publishertracker.enums.FilterErrorTypes;
-import com.precognox.tas.keycloak.services.KeycloakService;
+import com.precognox.publishertracker.services.KeycloakService;
 import org.junit.Test;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.mockito.Mockito;

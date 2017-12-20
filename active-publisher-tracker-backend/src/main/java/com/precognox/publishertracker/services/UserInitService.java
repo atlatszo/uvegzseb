@@ -3,7 +3,7 @@ package com.precognox.publishertracker.services;
 import com.avaje.ebean.Ebean;
 import com.precognox.publishertracker.entities.Account;
 import com.precognox.publishertracker.entities.Role;
-import com.precognox.tas.keycloak.services.KeycloakService;
+import com.precognox.publishertracker.services.KeycloakService;
 import lombok.extern.slf4j.Slf4j;
 import org.keycloak.representations.idm.UserRepresentation;
 

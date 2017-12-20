@@ -4,7 +4,7 @@ import com.avaje.ebean.Ebean;
 import com.precognox.publishertracker.DropwizardTestSkeleton;
 import com.precognox.publishertracker.beans.AccountRB;
 import com.precognox.publishertracker.entities.Account;
-import com.precognox.tas.keycloak.services.KeycloakService;
+import com.precognox.publishertracker.services.KeycloakService;
 import org.junit.Before;
 import org.junit.Test;
 import org.keycloak.representations.idm.UserRepresentation;

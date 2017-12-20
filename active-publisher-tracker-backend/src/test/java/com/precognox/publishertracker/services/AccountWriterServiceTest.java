@@ -5,7 +5,7 @@ import com.precognox.publishertracker.DropwizardTestSkeleton;
 import com.precognox.publishertracker.beans.CreateAccountRequest;
 import com.precognox.publishertracker.entities.Account;
 import com.precognox.publishertracker.exceptions.NotAuthorizedException;
-import com.precognox.tas.keycloak.services.KeycloakService;
+import com.precognox.publishertracker.services.KeycloakService;
 import org.junit.Before;
 import org.junit.Test;
 import org.keycloak.admin.client.Keycloak;

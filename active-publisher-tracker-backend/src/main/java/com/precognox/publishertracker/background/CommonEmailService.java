@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import com.precognox.emailservice.beans.EmailDeliveryRequest;
+import com.precognox.publishertracker.beans.EmailDeliveryRequest;
 import com.precognox.publishertracker.PublisherTrackerConfiguration;
 import lombok.extern.slf4j.Slf4j;
 

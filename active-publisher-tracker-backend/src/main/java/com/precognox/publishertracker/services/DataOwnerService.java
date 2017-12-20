@@ -14,7 +14,7 @@ import com.precognox.publishertracker.entities.Update;
 import com.precognox.publishertracker.enums.FilterErrorTypes;
 import com.precognox.publishertracker.exceptions.EntityNotFoundException;
 import com.precognox.publishertracker.exceptions.NonUniqueEntityException;
-import com.precognox.tas.keycloak.services.KeycloakService;
+import com.precognox.publishertracker.services.KeycloakService;
 import lombok.extern.slf4j.Slf4j;
 import org.keycloak.representations.idm.UserRepresentation;
 
