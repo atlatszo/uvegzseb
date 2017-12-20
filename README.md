@@ -40,25 +40,25 @@ Use “Example configurations” folder for resources.
 3. docker-compose up -d keycloak
 4. go to http://localhost:8080/auth/admin/master/console/#/create/client/master
 5. login with (default user and pass is admin/admin)
-![login](https://github.com/AtlatszoHU/uvegzseb/readme-images/01.PNG "")
+![login](https://github.com/AtlatszoHU/uvegzseb/blob/master/readme-images/01.PNG "")
 
 ### Step 2 Keycloak config
 1. create a client with name master
-![create client master](https://github.com/AtlatszoHU/uvegzseb/readme-images/02.PNG "")
+![create client master](https://github.com/AtlatszoHU/uvegzseb/blob/master/readme-images/02.PNG "")
 2. set the url paths to:
-![set the url](https://github.com/AtlatszoHU/uvegzseb/readme-images/03.PNG "")
+![set the url](https://github.com/AtlatszoHU/uvegzseb/blob/master/readme-images/03.PNG "")
 3. get the **client ID** and replace $KEYCLOAK_CLIENT_SECRET with it in **proxy.json**
-![set client ID](https://github.com/AtlatszoHU/uvegzseb/readme-images/04.PNG "")
+![set client ID](https://github.com/AtlatszoHU/uvegzseb/blob/master/readme-images/04.PNG "")
 4. Change 192.168.88.251 to your local IP in proxy.json
 5. restart keycloak-proxy with docker-compose restart keycloak-proxy
 6. go to realm settings / login and set the followings:
-![realm settings](https://github.com/AtlatszoHU/uvegzseb/readme-images/05.PNG "")
+![realm settings](https://github.com/AtlatszoHU/uvegzseb/blob/master/readme-images/05.PNG "")
 7. create role with name master
-![create role master](https://github.com/AtlatszoHU/uvegzseb/readme-images/06.PNG "")
+![create role master](https://github.com/AtlatszoHU/uvegzseb/blob/master/readme-images/06.PNG "")
 8. set master as default role
-![set default role](https://github.com/AtlatszoHU/uvegzseb/readme-images/07.PNG "")
+![set default role](https://github.com/AtlatszoHU/uvegzseb/blob/master/readme-images/07.PNG "")
 9. in realm admin go to your admin user and set "master" role for it
-![add master role to master user](https://github.com/AtlatszoHU/uvegzseb/readme-images/08.PNG "")
+![add master role to master user](https://github.com/AtlatszoHU/uvegzseb/blob/master/readme-images/08.PNG "")
 
 ### Step 3 Start services
 1. docker-compose up -d active-publisher-tracker-public-db
