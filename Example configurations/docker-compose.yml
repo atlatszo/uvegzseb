@@ -1,0 +1,130 @@
+version: "3.4"
+
+services:
+
+  postgres:
+    image: postgres:9.5
+    container_name: postgres
+    environment:
+    - POSTGRES_DATABASE=keycloak
+    - POSTGRES_USER=keycloak
+    - POSTGRES_PASSWORD=password
+    - POSTGRES_ROOT_PASSWORD=root_password
+    volumes:
+    - /tmp/keycloak-pgdata:/var/lib/postgresql/data
+    expose:
+    - 5432
+    networks:
+    - keycloak
+
+
+  keycloak-proxy:
+    build:
+      context: ./keycloak-proxy
+      dockerfile: Dockerfile 
+    image: keycloak-proxy:2.0.0
+    container_name: keycloak-proxy
+    restart: always
+    expose:
+    - 8080
+    volumes:
+    - ./proxy.json:/keycloak-proxy/conf/proxy.json
+    environment:
+    - KEYCLOAK_LOGLEVEL=debug
+    networks:
+    - keycloak
+
+  keycloak:
+    build:
+      context: ./keycloak-server
+      dockerfile: Dockerfile
+    image: keycloak-server:3.2.1.Final 
+    container_name: keycloak
+    restart: always
+    environment:
+    - POSTGRES_PORT_5432_TCP_ADDR=postgres
+    - POSTGRES_DATABASE=keycloak
+    - POSTGRES_USER=keycloak
+    - POSTGRES_PASSWORD=password
+    - KEYCLOAK_USER=admin
+    - KEYCLOAK_PASSWORD=admin
+    - KEYCLOAK_LOGLEVEL=DEBUG
+    - WEBROOT=auth
+    - PROXY_ADDRESS_FORWARDING=true
+    expose:
+    - 8080
+    networks:
+    - keycloak
+    external_links:
+    - postgres
+  nginx:
+    image: nginx:1.13
+    container_name: nginx
+    restart: always
+    expose:
+    - 80
+    - 8080
+    - 81
+    ports:
+    - 8080:8080
+    volumes:
+    - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    - ./nginx/conf.d:/etc/nginx/conf.d
+    networks:
+    - keycloak
+
+  active-publisher-tracker-frontend:
+      image: docker.precognox.com/active-publisher-tracker/active-publisher-tracker-admin-frontend:0.1.0-snapshot
+      container_name: active-publisher-tracker-frontend
+      environment:
+      - BASE_HREF=/admin/
+      expose:
+      - 80
+      networks:
+      - keycloak
+  active-publisher-tracker-public-backend:
+    image: docker.precognox.com/active-publisher-tracker/active-publisher-tracker-backend:0.1.0-development-snapshot
+    container_name: active-publisher-tracker-public-backend
+    expose:
+      - 8080
+    environment:
+      - JAVA_OPTS=-Xdebug -agentlib:jdwp=transport=dt_socket,address=8001,suspend=n,server=y
+      - DB_URL=jdbc:mariadb://active-publisher-tracker-public-db:3306/apt_backend
+      - DB_USER=root
+      - DB_PASS=Q2sxMAJ_k7UEhAa
+      - NEWSLETTER_FREQUENCY_HOURS=1
+      - REMINDER_FREQUENCY_HOURS=1
+      - REMINDER_THRESHOLD_DAYS=1
+      - KEYCLOAK_URL=http://keycloak:8080/auth
+      - KEYCLOAK_AUTH_REALM=master
+      - KEYCLOAK_USERNAME=admin
+      - KEYCLOAK_PASSWORD=admin
+      - REALM=master
+    networks:
+    - keycloak
+  active-publisher-tracker-public-db:
+    image: mysql:5.6.32
+    container_name: active-publisher-tracker-public-db
+    networks:
+      - keycloak
+    ports:
+      - "3308:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=Q2sxMAJ_k7UEhAa
+      - MYSQL_DATABASE=apt_backend
+      - MYSQL_USER=apt_backend
+      - MYSQL_PASSWORD=P8aoBE4oJC4M5fz
+  active-publisher-tracker-public-frontend:
+      image: docker.precognox.com/active-publisher-tracker/active-publisher-tracker-public-frontend:0.1.1
+      container_name: active-publisher-tracker-public-frontend
+      environment:
+      - RECAPTCHA_KEY=ThisIsASuperSecretCaptchaKey
+      expose:
+      - 80
+      networks:
+      - keycloak
+networks:
+  keycloak:
+    driver: bridge
+
+
